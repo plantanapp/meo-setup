@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  plantanapp.multienv:
+    image: "public.ecr.aws/plantanapp/meo:${MULTI_ENV_DOCKER_TAG}"
+    restart: always
+    volumes:
+      - '${HttpsCertFolder}:C:/Cert'
+      - '${AppConfigFolder}:C:/AppConfig'
+      - '${RepoFolder}:C:/Repo'
+      - '${LogsFolder}:C:/Logs'
+    networks:
+      - appnet
+    ports:
+      - '${http_port}:80'
+      - '${https_port}:443'
+    environment:
+      MultiEnvGitDataEncKey: ${MultiEnvGitDataEncKey}
+      "ConnectionStrings:MultiEnvConnection": ${MultiEnvDbConnection}
+      "ConnectionStrings:MultiEnvAuthConnection": ${MultiEnvAuthDbConnection}
+      HttpsRedirect: ${HttpsRedirect}
+      HttpsCertFileName: ${HttpsCertFileName}
+      HttpsCertPassword: ${HttpsCertPassword}
+      SqlUseManagedNetworkingOnWindows: ${SqlUseManagedNetworkingOnWindows}
+networks:
+  appnet:
+    name: plantanappNetwork
