@@ -5,10 +5,10 @@ services:
     image: "public.ecr.aws/plantanapp/meo:${MULTI_ENV_DOCKER_TAG}"
     restart: always
     volumes:
-      - '${HttpsCertFolder}:C:/Cert'
-      - '${AppConfigFolder}:C:/AppConfig'
-      - '${RepoFolder}:C:/Repo'
-      - '${LogsFolder}:C:/Logs'
+      - '${HttpsCertFolder}:/cert'
+      - '${AppConfigFolder}:/config'
+      - '${RepoFolder}:/repo'
+      - '${LogsFolder}:/logs'
     networks:
       - appnet
     ports:
